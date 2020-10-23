@@ -25,7 +25,7 @@
                     </c:choose>
                 <%--
                     <tr class="row${status.count % 2}">
-                        <td><c:out value="${user.user_id}" /></td>
+                        <td><c:out value="${user.bbid}" /></td>
                         <td><c:out value="${user.user_name}" /></td>
                         <td>
                             <c:choose>

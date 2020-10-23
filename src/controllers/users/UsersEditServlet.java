@@ -44,16 +44,16 @@ public class UsersEditServlet extends HttpServlet {
 
         //セッションスコープに"id"をセット
         request.getSession().setAttribute("id", es.getId());
-        //セッションスコープに"user_id"をセット
-        request.getSession().setAttribute("user_id", es.getUser_id());
+        //セッションスコープに"bbid"をセット
+        request.getSession().setAttribute("user_id", es.getBbid());
         Integer es_id = es.getId();
 
         //アプリケーションスコープにセットしたログインした人のuser_id情報を取得
-        User esc = (User)request.getServletContext().getAttribute("login_user_id");
-        Integer esc_id = esc.getId();
+        User e_asc = (User)request.getServletContext().getAttribute("login_user_id");
+        Integer easc_id = e_asc.getId();
         //request.getServletContext().setAttribute("flush", esc.getId());
 
-        if(es_id == esc_id){
+        if(es_id == easc_id){
 
             //セッションスコープのユーザーIDとアプリケーションスコープのユーザーIDを比較して、一致するなら更新画面を表示
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/edit.jsp");

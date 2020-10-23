@@ -9,8 +9,8 @@
 
     </div>
 </c:if>
-<label for="user_id">ユーザーID</label><br />
-<input type="text" name="user_id" value="${user.user_id}" />
+<label for="bbid">ベースボールID</label><br />
+<input type="text" name="bbid" value="${user.bbid}" />
 <br /><br />
 
 <label for="user_name">ユーザー名</label><br />

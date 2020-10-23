@@ -42,7 +42,7 @@ public class UsersCreateServlet extends HttpServlet {
 
             User e = new User();
 
-            e.setUser_id(request.getParameter("user_id"));
+            e.setBbid(request.getParameter("bbid"));
             e.setUser_name(request.getParameter("user_name"));
             //e.setProfile(request.getParameter("profile"));
             //e.setProfile_image(request.getParameter("profile_image"));

@@ -35,24 +35,24 @@ public class IdentificationServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF8"); //文字化け対策
-        String user_id = (String)request.getParameter("user_id");
+        String bbid = (String)request.getParameter("bbid");
         String mail_address = (String)request.getParameter("mail_address");
 
         //ユーザーIDとメールアドレスがnullでない、または空でない時
-        if(user_id != null && mail_address != null) {
+        if(bbid != null && mail_address != null) {
             //EntityManager em = DBUtil.createEntityManager();
-            //System.out.print(user_id);
+            //System.out.print(bbid);
             //System.out.print(mail_address );
 
             //セッションスコープに保持。→リクエストスコープに修正する必要があるかも。
-            request.getSession().setAttribute("user_id", user_id);
+            request.getSession().setAttribute("bbid", bbid);
             request.getSession().setAttribute("mail_address",  mail_address);
-            Integer id = checkIdentification(user_id, mail_address);
+            Integer id = checkIdentification(bbid, mail_address);
 
             //response.sendRedirect(request.getContextPath() + "/");
 
             if (id == (-1)){
-                request.getSession().setAttribute("flush", "[user_id] または [mail_address]が間違っています。");
+                request.getSession().setAttribute("flush", "「ベースボールID」 または [メールアドレス]が間違っています。");
                 response.sendRedirect(request.getContextPath() + "/");
 
             } else {
@@ -67,12 +67,12 @@ public class IdentificationServlet extends HttpServlet {
 
 
     // ユーザーIDとメールアドレスが一致するidを取得する
-    private static Integer checkIdentification(String user_id, String mail_address) {
+    private static Integer checkIdentification(String bbid, String mail_address) {
         EntityManager em = DBUtil.createEntityManager();
         Integer get_id;
         try {
                 get_id = (Integer)em.createNamedQuery("checkIdentificationGetId", Integer.class)
-                    .setParameter("user_id", user_id)
+                    .setParameter("bbid", bbid)
                     .setParameter("mail_address", mail_address)
                     .getSingleResult();
             em.close();

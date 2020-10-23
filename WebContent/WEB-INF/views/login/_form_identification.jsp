@@ -12,8 +12,8 @@
 
     <%--本人確認のため、ユーザーIDとメールアドレスを入力 --%>
     <%--ログインしていないので、valueは空のままでOK --%>
-    <label for="user_id">ユーザーID</label><br />
-    <input type="text" name="user_id" value="" /><br /><br />
+    <label for="bbid">ベースボールID</label><br />
+    <input type="text" name="bbid" value="" /><br /><br />
 
     <label for="mail_address">メールアドレス</label><br />
     <input type="text" name="mail_address" value="" /><br /><br />

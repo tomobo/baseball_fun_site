@@ -35,17 +35,25 @@ public class UsersDestroyServlet extends HttpServlet {
         String _token = (String)request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
+            //System.out.println(request.getServletContext().getAttribute("login_user_id"));
 
-            User e = em.find(User.class, (Integer)(request.getSession().getAttribute("user_id")));
+            //User e_asc = (User)request.getServletContext().getAttribute("login_user_id");
+            //User e = em.find(User.class, e_asc);
+            //User e = em.find(User.class, (Integer)(request.getSession().getAttribute("bbid")));
+            //User e = em.find(User.class, (Integer)(request.getServletContext().getAttribute("login_user_id")));
+            User e_asc = (User)request.getServletContext().getAttribute("login_user_id");
+            Integer easc_id = e_asc.getId();
+            System.out.println(easc_id);
+            User e = em.find(User.class, easc_id);
             e.setDelete_flag(1);
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 
             em.getTransaction().begin();
             em.getTransaction().commit();
             em.close();
+            request.getSession().removeAttribute("login_user");
             request.getSession().setAttribute("flush", "削除が完了しました。");
-
-            response.sendRedirect(request.getContextPath() + "/users/index");
+            response.sendRedirect(request.getContextPath() + "/");
         }
     }
 

@@ -46,10 +46,10 @@ public class UsersUpdateServlet extends HttpServlet {
             // 現在の値と異なるユーザーIDが入力されていたら
             // 重複チェックを行う指定をする
             Boolean code_duplicate_check = true;
-            if(e.getUser_id().equals(request.getParameter("user_id"))) {
+            if(e.getBbid().equals(request.getParameter("bbid"))) {
                 code_duplicate_check = false;
             } else {
-                e.setUser_id(request.getParameter("user_id"));
+                e.setBbid(request.getParameter("bbid"));
             }
 
             // パスワード欄に入力があったら
@@ -88,7 +88,7 @@ public class UsersUpdateServlet extends HttpServlet {
                 em.close();
                 request.getSession().setAttribute("flush", "更新が完了しました。");
 
-                request.getSession().removeAttribute("user_id");
+                request.getSession().removeAttribute("bbid");
 
                 response.sendRedirect(request.getContextPath() + "/users/index");
             }

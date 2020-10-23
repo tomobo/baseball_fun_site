@@ -14,8 +14,8 @@
         </c:if>
         <h2>ログイン</h2>
         <form method="POST" action="<c:url value='/login' />">
-            <label for="user_id">ユーザーID</label><br />
-            <input type="text" name="user_id" value="${user_id}" />
+            <label for="bbid">ベースボールID</label><br />
+            <input type="text" name="bbid" value="${bbid}" />
             <br /><br />
 
             <label for="password">パスワード</label><br />

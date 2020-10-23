@@ -12,9 +12,9 @@ public class UserValidator {
     public static List<String> validate(User e, Boolean code_duplicate_check_flag, Boolean password_check_flag) {
         List<String> errors = new ArrayList<String>();
 
-        String user_id_error = _validateUser_id(e.getUser_id(), code_duplicate_check_flag);
-        if(!user_id_error.equals("")) {
-            errors.add(user_id_error);
+        String bbid_error = _validateBbid(e.getBbid(), code_duplicate_check_flag);
+        if(!bbid_error.equals("")) {
+            errors.add(bbid_error);
         }
 
         String user_name_error = _validateUser_name(e.getUser_name());
@@ -33,17 +33,17 @@ public class UserValidator {
     // ユーザーID
     /*第2引数にBoolean型の引数を用意し、そこが true であればバリデーションチェックを実行する
      * 変更処理(update)の時に、入力チェックが不要な場合も存在するため。*/
-    private static String _validateUser_id(String user_id, Boolean code_duplicate_check_flag) {
+    private static String _validateBbid(String bbid, Boolean code_duplicate_check_flag) {
         // 必須入力チェック
-        if(user_id == null || user_id.equals("")) {
-            return "ユーザーIDを入力してください。";
+        if(bbid == null || bbid.equals("")) {
+            return "ベースボールIDを入力してください。";
         }
 
         // すでに登録されているユーザーIDとの重複チェック
         if(code_duplicate_check_flag) {
             EntityManager em = DBUtil.createEntityManager();
             long users_count = (long)em.createNamedQuery("checkRegisteredCode", Long.class)
-                                           .setParameter("user_id", user_id)
+                                           .setParameter("bbid", bbid)
                                              .getSingleResult();
             em.close();
             if(users_count > 0) {

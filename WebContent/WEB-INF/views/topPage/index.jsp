@@ -11,9 +11,9 @@
 
         <%--デバック用--%>
         <%--
-        <c:if test="${user_id != null and mail_address != null}">
+        <c:if test="${bbid != null and mail_address != null}">
             <div id="flush_success">
-                <c:out value="${user_id}"></c:out>
+                <c:out value="${bbid}"></c:out>
                 <c:out value="${mail_address}"></c:out>
                 <c:out value="${id}"></c:out>
             </div>

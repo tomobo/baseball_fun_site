@@ -27,17 +27,17 @@ import javax.persistence.Table;
     //指定されたユーザーIDがデータベースに存在しているか調べる
     @NamedQuery(
             name = "checkRegisteredCode",
-            query = "SELECT COUNT(e) FROM User AS e WHERE e.user_id = :user_id"
+            query = "SELECT COUNT(e) FROM User AS e WHERE e.bbid = :bbid"
             ),
     //ユーザーがログインする時にユーザーIDとパスワードが正しいかチェックする
     @NamedQuery(
             name = "checkLoginCodeAndPassword",
-            query = "SELECT e FROM User AS e WHERE e.delete_flag = 0 AND e.user_id = :user_id AND e.password = :pass"
+            query = "SELECT e FROM User AS e WHERE e.delete_flag = 0 AND e.bbid = :bbid AND e.password = :pass"
             ),
    //指定されたユーザーIDとメールアドレスが一致するIDを取得する
    @NamedQuery(
             name = "checkIdentificationGetId",
-            query = "SELECT e.id FROM User AS e WHERE e.user_id = :user_id AND e.mail_address = :mail_address"
+            query = "SELECT e.id FROM User AS e WHERE e.bbid = :bbid AND e.mail_address = :mail_address"
             )
    //指定されたIDのパスワードを更新する
    //@NamedQuery(
@@ -47,7 +47,7 @@ import javax.persistence.Table;
 
 })
 
-@Entity
+@Entity(name = "User")
 public class User {
     @Id
     @Column(name = "id")
@@ -55,8 +55,8 @@ public class User {
     private Integer id;
 
     //user_idのフィールドにはunique制約を追加
-    @Column(name = "user_id", nullable = false, unique = true)
-    private String user_id;
+    @Column(name = "bbid", nullable = false, unique = true)
+    private String bbid;
 
     @Column(name = "user_name", nullable = false)
     private String user_name;
@@ -96,12 +96,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getBbid() {
+        return bbid;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setBbid(String bbid) {
+        this.bbid = bbid;
     }
 
     public String getUser_name() {
