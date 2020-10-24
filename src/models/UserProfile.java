@@ -57,7 +57,7 @@ public class UserProfile {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id") // 付けなくてもOK
+    @JoinColumn(name = "bbid") // 付けなくてもOK
     private User user;
 
     @Column(name = "profile", nullable = false)

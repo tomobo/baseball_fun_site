@@ -9,20 +9,13 @@
 
     </div>
 </c:if>
-<label for="bbid">ベースボールID</label><br />
-<input type="text" name="bbid" value="${user.bbid}" />
+<label for="profile_image">プロフィール画像</label><br />
+<input type="text" name="profile_image" value="${user_profile.profile_image}" />
 <br /><br />
 
-<label for="user_name">ユーザー名</label><br />
-<input type="text" name="user_name" value="${user.user_name}" />
-<br /><br />
-
-<label for="mail_address">メールアドレス</label><br />
-<input type="text" name="mail_address" value="${user.mail_address}" />
-<br /><br />
-
-<label for="password">パスワード</label><br />
-<input type="password" name="password" />
+<label for="profile">プロフィール詳細</label><br />
+<input type="text" name="profile" value="${user_profile.profile}" />
+<p>※公開される情報です。個人情報の記載にはご注意ください。</p>
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />
