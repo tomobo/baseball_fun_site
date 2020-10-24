@@ -4,7 +4,10 @@
     <c:param name="content">
         <h2>プロフィール | 新規登録ページ</h2>
 
-        <form method="POST" action="<c:url value='/profiles/create' />">
+        <div>プロフィール画像を設定する場合は画像をファイルを選択し、画像をアップロードしてください。</div><br/>
+        <c:import url="_form_upload.jsp" />
+
+        <form method="POST" action="<c:url value='/profile/create' />">
             <c:import url="_form_profile.jsp" />
         </form>
 

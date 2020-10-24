@@ -9,8 +9,8 @@
 
     </div>
 </c:if>
-<label for="profile_image">プロフィール画像</label><br />
-<input type="text" name="profile_image" value="${user_profile.profile_image}" />
+<label for="profile_image_name">画像ファイル名</label><br />
+<input type="text" name="profile_image_name" value="${profile_image_name}" />
 <br /><br />
 
 <label for="profile">プロフィール詳細</label><br />
