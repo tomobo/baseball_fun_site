@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 @WebServlet("/image/upload")
-@MultipartConfig(location="/WebContent/WEB-INF/image/uploaded",
+@MultipartConfig(location="/image/uploaded",
     fileSizeThreshold = 1024 * 1024,
     maxFileSize = 1024 *  1024 *  5,
     maxRequestSize = 1024 *  1024 *  5 *  5)
@@ -22,11 +22,10 @@ public class UserProfileUpload extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part part = request.getPart("file");
         String file_name = this.getFileName(part);
-        part.write(getServletContext().getRealPath("/WEB-INF/image/uploaded") + File.separator + file_name);
-        System.out.println(getServletContext().getRealPath("/WEB-INF/image/uploaded") + File.separator + file_name);
+        part.write(getServletContext().getRealPath("/image/uploaded") + File.separator + file_name);
+        System.out.println(getServletContext().getRealPath("/image/uploaded") + File.separator + file_name);
         request.getSession().setAttribute("profile_image_name", file_name);
         System.out.println(request.getSession().getAttribute("profile_image_name"));
-        //response.sendRedirect(request.getContextPath() + "/");
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/profiles/new_profile.jsp");
         rd.forward(request, response);
     }

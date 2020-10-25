@@ -1,6 +1,7 @@
 package controllers.login;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -46,6 +47,8 @@ public class PasswordUpdate extends HttpServlet {
         if(new_password != null){
           //新しいパスワードをハッシュ化し、Userオブジェクトのパスワードにセットする（EncryptUtil.javaに定義してるよ）
             e.setPassword(EncryptUtil.getPasswordEncrypt(new_password, (String)this.getServletContext().getAttribute("pepper")));
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            e.setUpdated_at(currentTime);
             //トランザクションの開始とコミットを実施
             em.getTransaction().begin();
             em.getTransaction().commit();
@@ -57,7 +60,5 @@ public class PasswordUpdate extends HttpServlet {
             request.getSession().setAttribute("flush", "パスワードの更新に失敗しました。");
             response.sendRedirect(request.getContextPath() + "/");
         }
-
-        //e.setPassword(EncryptUtil.getPasswordEncrypt("password", (String)this.getServletContext().getAttribute("pepper"));
     }
 }

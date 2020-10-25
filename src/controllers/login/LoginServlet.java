@@ -67,6 +67,8 @@ public class LoginServlet extends HttpServlet {
                     (String)this.getServletContext().getAttribute("pepper")
                     );
 
+            System.out.println(bbid);
+            System.out.println(password);
             // ユーザーIDとパスワードが正しいかチェックする
             try {
                 e = em.createNamedQuery("checkLoginCodeAndPassword", User.class)

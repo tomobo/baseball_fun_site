@@ -9,6 +9,7 @@
 
     </div>
 </c:if>
+
 <label for="profile_image_name">画像ファイル名</label><br />
 <input type="text" name="profile_image_name" value="${profile_image_name}" />
 <br /><br />

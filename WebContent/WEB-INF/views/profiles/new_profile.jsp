@@ -7,6 +7,8 @@
         <div>プロフィール画像を設定する場合は画像をファイルを選択し、画像をアップロードしてください。</div><br/>
         <c:import url="_form_upload.jsp" />
 
+        <img src="<c:url value='${profile_image_name}'/>" width="800" height="350" />
+
         <form method="POST" action="<c:url value='/profile/create' />">
             <c:import url="_form_profile.jsp" />
         </form>
