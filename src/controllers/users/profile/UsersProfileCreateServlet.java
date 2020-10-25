@@ -42,7 +42,7 @@ public class UsersProfileCreateServlet extends HttpServlet {
             UserProfile e = new UserProfile();
 
             e.setProfile_image(request.getParameter("profile_image"));
-            e.setProfile(request.getParameter("profile"));
+            //e.setProfile(request.getParameter("profile"));
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             e.setCreated_at(currentTime);

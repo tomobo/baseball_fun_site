@@ -11,14 +11,6 @@
         <div>プロフィール画像を設定する場合は画像をファイルを選択し、画像をアップロードしてください。</div><br/>
         <c:import url="_form_upload.jsp" />
 
-        <%--
-        <img src="<c:url value='${profile_image_name}'/>" width="800" height="350" />
-        <img src="<c:url value='/image/uploaded/さかたともや.png'/>" width="800" height="350" />
-        <img src="<c:url value='C:/pleiades/workspace/baseball_fun_site/WebContent/image/uploaded/さかたともや.png'/>" width="800" height="350" />
-        <img src="C:\pleiades\workspace\baseball_fun_site\WebContent\image\banners\topics_img_top.jpg" width="800" height="350" />
-        <img src="<c:url value='/image/banners/topics_img_top.jpg'/>" width="800" height="350" alt=トップページバナー画像/>
-         --%>
-
         <form method="POST" action="<c:url value='/profile/create' />">
             <c:import url="_form_profile.jsp" />
         </form>

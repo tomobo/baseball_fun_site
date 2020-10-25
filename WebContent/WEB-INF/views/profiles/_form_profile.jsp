@@ -13,10 +13,5 @@
 <input type="text" name="profile_image_name" value="${profile_image_name}" />
 <br /><br />
 
-<label for="profile">プロフィール詳細</label><br />
-<input type="text" name="profile" value="${user_profile.profile}" />
-<p>※公開される情報です。個人情報の記載にはご注意ください。</p>
-<br /><br />
-
 <input type="hidden" name="_token" value="${_token}" />
 <button type="submit">登録</button>
