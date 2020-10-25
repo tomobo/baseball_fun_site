@@ -26,7 +26,7 @@ public class UserProfileUpload extends HttpServlet {
         //System.out.println(getServletContext().getRealPath("/image/uploaded") + File.separator + file_name);
         part.write("C:/pleiades/workspace/baseball_fun_site/WebContent/image/uploaded" + File.separator + file_name);
         System.out.println("C:/pleiades/workspace/baseball_fun_site/WebContent/image/uploaded" + File.separator + file_name);
-        request.getSession().setAttribute("profile_image_name", file_name);
+        request.getSession().setAttribute("profile_image_name", "C:/pleiades/workspace/baseball_fun_site/WebContent/image/uploaded" + File.separator + file_name);
         System.out.println(request.getSession().getAttribute("profile_image_name"));
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/profiles/new_profile.jsp");
         rd.forward(request, response);
