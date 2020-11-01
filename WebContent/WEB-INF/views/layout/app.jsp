@@ -34,8 +34,14 @@
                 </c:if>
 
                 <c:if test="${sessionScope.login_user != null}">
+                    <%--
                     <<div id="user_name">
-                        <a href="<c:url value='/users/edit?id=${login_user.id}' />"><c:out value="${sessionScope.login_user.user_name}" /></a>さん&nbsp;&nbsp;&nbsp;
+                        <a href="<c:url value='/users/edit?id=${sessionScope.login_user.id}' />"><c:out value="${sessionScope.login_user.user_name}" /></a>さん&nbsp;&nbsp;&nbsp;
+                        <a href="<c:url value='/logout' />">ログアウト</a>
+                    </div>
+                     --%>
+                    <div id="user_name">
+                        <a href="<c:url value='/mypage?id=${sessionScope.login_user.id}' />">マイページ</a>&nbsp;&nbsp;&nbsp;
                         <a href="<c:url value='/logout' />">ログアウト</a>
                     </div>
                 </c:if>

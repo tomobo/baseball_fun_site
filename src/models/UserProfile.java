@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.Table;
 
@@ -30,14 +28,19 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "bbid") // 付けなくてもOK
-    private User user;
+    //@Column(name = "bbid", nullable = false) // 付けなくてもOK
+    //private String bbid;
 
-    //@Column(name = "profile", nullable = false)
+    @Column(name = "user_id", nullable = false)
+    private Integer user_id;
+
+    @Column(name = "bbid", nullable = false)
+    private String bbid;
+
+    //@Column(name = "profile", nullable = true)
     //private String profile;
 
-    @Column(name = "profile_image", nullable = false)
+    @Column(name = "profile_image", nullable = true)
     private String profile_image;
 
     @Column(name = "created_at", nullable = false)
@@ -56,6 +59,22 @@ public class UserProfile {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getBbid() {
+        return bbid;
+    }
+
+    public void setBbid(String bbid) {
+        this.bbid = bbid;
     }
 
     //public String getProfile() {

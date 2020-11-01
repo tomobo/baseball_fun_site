@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import models.User;
+import models.UserProfile;
 import models.validators.UserValidator;
 import utils.DBUtil;
 import utils.EncryptUtil;
@@ -41,7 +42,6 @@ public class UsersCreateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
 
             User e = new User();
-
             e.setBbid(request.getParameter("bbid"));
             e.setUser_name(request.getParameter("user_name"));
             //e.setProfile(request.getParameter("profile"));
@@ -70,12 +70,32 @@ public class UsersCreateServlet extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/new.jsp");
                 rd.forward(request, response);
             } else {
+                //ユーザークラスのテーブルを作成
                 em.getTransaction().begin();
                 em.persist(e);
                 em.getTransaction().commit();
                 em.close();
-                request.getSession().setAttribute("flush", "登録が完了しました。");
 
+                //プロフィールクラスのテーブルを作成
+                //EntityManager ep = DBUtil.createEntityManager();
+
+                //UserProfile p = new UserProfile();
+
+                //p.setBbid(bbid);
+                //p.setProfile_image(null);
+                //p.setProfile(null);
+
+                //Timestamp currentTime_P = new Timestamp(System.currentTimeMillis());
+                //p.setCreated_at(currentTime_P);
+                //p.setUpdated_at(currentTime_P);
+                //p.setDelete_flag(0);
+
+                //ep.getTransaction().begin();
+                //ep.persist(p);
+                //ep.getTransaction().commit();
+                //ep.close();
+
+                request.getSession().setAttribute("flush", "登録が完了しました。");
                 response.sendRedirect(request.getContextPath() + "/login");
             }
         }

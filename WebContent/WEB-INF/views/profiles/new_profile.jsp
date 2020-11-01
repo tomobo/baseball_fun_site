@@ -7,14 +7,15 @@
         <c:if test="${sessionScope.profile_image_name != null}">
             <img src="<c:url value='${sessionScope.profile_image_name}'/>" width="200" height="200" />
         </c:if>
-
+        <%--
         <div>プロフィール画像を設定する場合は画像をファイルを選択し、画像をアップロードしてください。</div><br/>
         <c:import url="_form_upload.jsp" />
-
+         --%>
+        <%--
         <form method="POST" action="<c:url value='/profile/create' />">
             <c:import url="_form_profile.jsp" />
         </form>
-
+         --%>
         <p><a href="<c:url value='/' />">一覧に戻る</a></p>
     </c:param>
 </c:import>
