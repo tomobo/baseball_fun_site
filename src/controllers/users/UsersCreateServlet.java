@@ -44,8 +44,6 @@ public class UsersCreateServlet extends HttpServlet {
             User e = new User();
             e.setBbid(request.getParameter("bbid"));
             e.setUser_name(request.getParameter("user_name"));
-            //e.setProfile(request.getParameter("profile"));
-            //e.setProfile_image(request.getParameter("profile_image"));
             e.setMail_address(request.getParameter("mail_address"));
             e.setPassword(
                     EncryptUtil.getPasswordEncrypt(
@@ -76,25 +74,24 @@ public class UsersCreateServlet extends HttpServlet {
                 em.getTransaction().commit();
                 em.close();
 
-                //プロフィールクラスのテーブルを作成
-                //EntityManager ep = DBUtil.createEntityManager();
+                //User e_user = em.find(User.class, e.getId());
 
-                //UserProfile p = new UserProfile();
+                EntityManager emp = DBUtil.createEntityManager();
+                UserProfile ep = new UserProfile();
+                ep.setUser_id(e.getId());
+                ep.setBbid(e.getBbid());
+                ep.setProfile_image(null);
 
-                //p.setBbid(bbid);
-                //p.setProfile_image(null);
-                //p.setProfile(null);
+                //Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+                ep.setCreated_at(currentTime);
+                ep.setUpdated_at(currentTime);
+                ep.setDelete_flag(0);
+                emp.getTransaction().begin();
+                emp.persist(ep);
+                emp.getTransaction().commit();
+                emp.close();
 
-                //Timestamp currentTime_P = new Timestamp(System.currentTimeMillis());
-                //p.setCreated_at(currentTime_P);
-                //p.setUpdated_at(currentTime_P);
-                //p.setDelete_flag(0);
-
-                //ep.getTransaction().begin();
-                //ep.persist(p);
-                //ep.getTransaction().commit();
-                //ep.close();
-
+                //request.setAttribute("flush", "DBのprofileカラムを作成しました。");
                 request.getSession().setAttribute("flush", "登録が完了しました。");
                 response.sendRedirect(request.getContextPath() + "/login");
             }

@@ -3,6 +3,8 @@ package controllers.users.profile;
 import java.io.File;
 import java.io.IOException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import models.User;
+import models.UserProfile;
+import utils.DBUtil;
 
 @WebServlet("/image/upload")
 @MultipartConfig(location="C:/pleiades/workspace/baseball_fun_site/WebContent", //locationの値は絶対パスのみ(コンテキスパスまでの)で指定。
@@ -39,6 +43,20 @@ public class UserProfileUpload extends HttpServlet {
         System.out.println(user_id);
         System.out.println(bbid);
 
+        UserProfile ep = null;
+        EntityManager em = DBUtil.createEntityManager();
+        try {
+        ep = em.createNamedQuery("getEntity", UserProfile.class)
+                .setParameter("user_id", user_id)
+                .getSingleResult();
+        } catch(NoResultException ex) {}
+
+        //UserProfile ep = em.find(UserProfile.class,(Integer)(request.getSession().getAttribute("id")));
+        //UserProfile ep = em.find(UserProfile.class, user_id);
+        String p_bbid = ep.getBbid();
+        System.out.println(p_bbid);
+        em.close();
+
         //EntityManager em = DBUtil.createEntityManager();
         //System.out.println("1");
         //UserProfile ep = em.find(UserProfile.class, user_id);
@@ -49,7 +67,7 @@ public class UserProfileUpload extends HttpServlet {
         //System.out.println(ep.getId());
 
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/profiles/new_profile.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/mypage.jsp");
         rd.forward(request, response);
     }
 

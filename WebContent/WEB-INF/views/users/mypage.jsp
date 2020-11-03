@@ -35,7 +35,7 @@
 
         <c:if test="${sessionScope.login_user != null}">
             <div id="upload_profile">
-                <p><a href="<c:url value='/profile/create?id=${sessionScope.login_user.id}' />">プロフィール画像の設定はコチラ</a></p>
+                <p><a href="<c:url value='/profile/create' />">プロフィール画像の設定はコチラ</a></p>
             </div>
             <div id="edit_user">
                 <p><a href="<c:url value='/users/edit?id=${sessionScope.login_user.id}' />">基本情報の変更はコチラ</a></p>

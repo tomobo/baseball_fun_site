@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Table(name = "users_profile")
@@ -15,9 +16,14 @@ import javax.persistence.Table;
 @NamedQueries({
    //指定されたIDのパスワードを更新する
    //@NamedQuery(
-   //         name = "updatePassword",
-   //         query = "UPDATE User SET password = :password where id = :id"
-   //         ),
+   //         name = "updateProfileImage",
+   //         query = "UPDATE users_profile SET profile_image = :profile_image where id = :id"
+   //         )
+  //指定されたユーザーIDのオブジェクトを取得する
+    @NamedQuery(
+            name = "getEntity",
+            query = "SELECT e FROM UserProfile AS e WHERE e.user_id = :user_id"
+            )
 
 })
 
