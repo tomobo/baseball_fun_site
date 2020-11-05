@@ -90,7 +90,8 @@ public class UsersUpdateServlet extends HttpServlet {
 
                 request.getSession().removeAttribute("bbid");
 
-                response.sendRedirect(request.getContextPath() + "/users/index");
+                //response.sendRedirect(request.getContextPath() + "/users/index");
+                response.sendRedirect(request.getContextPath() + "/mypage?id=" + request.getSession().getAttribute("id"));
             }
         }
     }

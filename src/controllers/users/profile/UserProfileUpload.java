@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -66,8 +65,9 @@ public class UserProfileUpload extends HttpServlet {
         em.close();
         request.getSession().setAttribute("flush", "ファイルパスをDBに登録しました。");//セッションスコープ
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/mypage.jsp");
-        rd.forward(request, response);
+        //RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/mypage.jsp");
+        //rd.forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/mypage?id=" + user_id);
     }
 
 
