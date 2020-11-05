@@ -5,17 +5,31 @@
     <c:param name="content">
 
         <%-- flushがある場合は表示する --%>
-        <c:if test="${flush != null}">
+        <c:if test="${sessionScope.flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                <c:out value="${sessionScope.flush}"></c:out>
             </div>
         </c:if>
         <h2>マイページ</h2>
 
         <c:choose>
-            <c:when test="${UserProfile != null}">
+            <c:when test="${sessionScope.image != null}">
                 <p>プロフィール画像</p>
-                   <div>${UserProfile.profile_image}<br>
+                   <%-- DBにプロフィール画像のファイルパスがある場合は画像を表示 --%>
+                   <div><img src="<c:url value='${sessionScope.image}' />" width="100" height="90" alt=プロフィール画像 />
+                   </div>
+        <%--
+        <img src="<c:url value='${profile_image_name}'/>" width="800" height="350" />
+        <img src="<c:url value='/image/uploaded/さかたともや.png'/>" width="800" height="350" />
+        <img src="<c:url value='C:/pleiades/workspace/baseball_fun_site/WebContent/image/uploaded/さかたともや.png'/>" width="800" height="350" />
+        <img src="C:\pleiades\workspace\baseball_fun_site\WebContent\image\banners\topics_img_top.jpg" width="800" height="350" />
+        <img src="<c:url value='/image/banners/topics_img_top.jpg'/>" width="800" height="350" alt=トップページバナー画像/>
+        --%>
+
+                <p>基本情報</p>
+                   <div>ベースボールID | ${user.bbid}<br>
+                        ユーザーネーム | ${user.user_name}<br>
+                        メールアドレス | ${user.mail_address}<br>
                    </div>
             </c:when>
 

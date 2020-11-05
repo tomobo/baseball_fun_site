@@ -2,6 +2,7 @@ package controllers.users.profile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -37,35 +38,33 @@ public class UserProfileUpload extends HttpServlet {
         System.out.println(full_pass + "/image/uploaded" + File.separator + file_name);
         System.out.println(request.getSession().getAttribute("profile_image_name"));
 
+        //ログインユーザーのUserクラスのEntityを取得
         User e = (User)request.getSession().getAttribute("login_user");
-        Integer user_id = e.getId();
-        String bbid = e.getBbid();
-        System.out.println(user_id);
-        System.out.println(bbid);
+        Integer user_id = e.getId(); //user_idを取得
+        //String bbid = e.getBbid();
+        //System.out.println(user_id);
+        //System.out.println(bbid);
 
-        UserProfile ep = null;
+
+        UserProfile ep = null; //UserProfileクラスの変数を作成
         EntityManager em = DBUtil.createEntityManager();
         try {
-        ep = em.createNamedQuery("getEntity", UserProfile.class)
+        ep = em.createNamedQuery("getEntity", UserProfile.class) //NamedQueryを利用して、テーブルusers_profileからuser_idが一致する情報を変数に格納
                 .setParameter("user_id", user_id)
                 .getSingleResult();
         } catch(NoResultException ex) {}
 
-        //UserProfile ep = em.find(UserProfile.class,(Integer)(request.getSession().getAttribute("id")));
-        //UserProfile ep = em.find(UserProfile.class, user_id);
+
         String p_bbid = ep.getBbid();
         System.out.println(p_bbid);
+
+
+        ep.setProfile_image((String)(request.getSession().getAttribute("profile_image_name")));
+        ep.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+        em.getTransaction().begin();
+        em.getTransaction().commit();
         em.close();
-
-        //EntityManager em = DBUtil.createEntityManager();
-        //System.out.println("1");
-        //UserProfile ep = em.find(UserProfile.class, user_id);
-        //System.out.println("2");
-        //String p_bbid = ep.getBbid();
-        //System.out.println(p_bbid);
-        //em.close();
-        //System.out.println(ep.getId());
-
+        request.getSession().setAttribute("flush", "ファイルパスをDBに登録しました。");//セッションスコープ
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/mypage.jsp");
         rd.forward(request, response);
