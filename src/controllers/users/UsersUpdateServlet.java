@@ -43,13 +43,22 @@ public class UsersUpdateServlet extends HttpServlet {
             User e = em.find(User.class, (Integer)(request.getSession().getAttribute("id")));
             //User e = em.find(User.class, (User)(request.getSession().getAttribute("login_user")));
 
-            // 現在の値と異なるユーザーIDが入力されていたら
+            // 現在の値と異なるBBIDが入力されていたら
             // 重複チェックを行う指定をする
             Boolean code_duplicate_check = true;
             if(e.getBbid().equals(request.getParameter("bbid"))) {
                 code_duplicate_check = false;
             } else {
                 e.setBbid(request.getParameter("bbid"));
+            }
+
+            // 現在の値と異なるユーザーネームが入力されていたら
+            // 重複チェックを行う指定をする
+            Boolean user_name_duplicate_check = true;
+            if(e.getUser_name().equals(request.getParameter("user_name"))) {
+                user_name_duplicate_check = false;
+            } else {
+                e.setUser_name(request.getParameter("user_name"));
             }
 
             // パスワード欄に入力があったら
@@ -72,7 +81,7 @@ public class UsersUpdateServlet extends HttpServlet {
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
             e.setDelete_flag(0);
 
-            List<String> errors = UserValidator.validate(e, code_duplicate_check, password_check_flag);
+            List<String> errors = UserValidator.validate(e, code_duplicate_check, user_name_duplicate_check, password_check_flag);
             if(errors.size() > 0) {
                 em.close();
 

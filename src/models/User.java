@@ -24,10 +24,15 @@ import javax.persistence.Table;
             name = "getUsersCount",
             query = "SELECT COUNT(e) FROM User AS e WHERE e.delete_flag = 0"
             ),
-    //指定されたユーザーIDがデータベースに存在しているか調べる
+    //指定されたbbidがデータベースに存在しているか調べる
     @NamedQuery(
             name = "checkRegisteredCode",
             query = "SELECT COUNT(e) FROM User AS e WHERE e.bbid = :bbid"
+            ),
+    //指定されたユーザーネームがデータベースに存在しているか調べる
+    @NamedQuery(
+            name = "checkRegisteredUserName",
+            query = "SELECT COUNT(e) FROM User AS e WHERE e.user_name = :user_name"
             ),
     //ユーザーがログインする時にユーザーIDとパスワードが正しいかチェックする
     @NamedQuery(

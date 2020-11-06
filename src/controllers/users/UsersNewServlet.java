@@ -30,8 +30,9 @@ public class UsersNewServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // CSRF対策(セキュリティへの脅威に対する対策)セッションIDを取得し、リクエストスコープにtokenとして格納。
         request.setAttribute("_token", request.getSession().getId());
-        request.setAttribute("user", new User());
+        request.setAttribute("user", new User()); //おまじないとしてのインスタンスを生成し、リクエストスコープに格納
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/new.jsp");
         rd.forward(request, response);
