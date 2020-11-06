@@ -18,27 +18,11 @@
                     <c:choose>
                         <c:when test="${user.delete_flag == 0}">
                             <tr class="row${status.count % 2}">
-                            <td><c:out value="${user.user_name}" /></td>
+                            <td><a href="<c:url value='/users/show?id=${user.id}' />"><c:out value="${user.user_name}" /></a></td>
                             <td><a href="<c:url value='/users/show?id=${user.id}' />">詳細を表示</a></td>
                             </tr>
                         </c:when>
                     </c:choose>
-                <%--
-                    <tr class="row${status.count % 2}">
-                        <td><c:out value="${user.bbid}" /></td>
-                        <td><c:out value="${user.user_name}" /></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${user.delete_flag == 1}">
-                                    （削除済み）
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="<c:url value='/users/show?id=${user.id}' />">詳細を表示</a>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                    </tr>
-                --%>
                 </c:forEach>
             </tbody>
         </table>
@@ -59,6 +43,7 @@
 
         <c:if test="${sessionScope.login_user == null}">
             <p><a href="<c:url value='/users/new' />">新規ユーザー登録</a></p>
+            <p><a href="<c:url value='/' />">Topページへ戻る</a></p>
         </c:if>
 
         <c:if test="${sessionScope.login_user != null}">
