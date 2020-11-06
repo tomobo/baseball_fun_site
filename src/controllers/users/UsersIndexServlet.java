@@ -33,25 +33,28 @@ public class UsersIndexServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         EntityManager em = DBUtil.createEntityManager();
+        // ページネーション機能
+        // 開くページ数を取得（デフォルトは1ページ目）
         int page = 1;
         try{
             page = Integer.parseInt(request.getParameter("page"));
         } catch(NumberFormatException e) { }
+
+        // 最大件数と開始位置を指定してユーザー情報を取得(削除済みのユーザーは含めない)
         List<User> users = em.createNamedQuery("getAllUsers", User.class)
                                      .setFirstResult(15 * (page - 1))
                                      .setMaxResults(15)
                                      .getResultList();
 
+        // 全件数を取得(削除済みのユーザーは含めない)
         long users_count = (long)em.createNamedQuery("getUsersCount", Long.class)
                                        .getSingleResult();
-
         em.close();
 
-        request.setAttribute("users", users);
-        request.setAttribute("users_count", users_count);
-        request.setAttribute("page", page);
+        request.setAttribute("users", users); //全てのユーザー情報
+        request.setAttribute("users_count", users_count); //delete_flagが立っていないユーザー数
+        request.setAttribute("page", page); //ページ数
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");

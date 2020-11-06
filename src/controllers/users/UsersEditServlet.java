@@ -32,30 +32,23 @@ public class UsersEditServlet extends HttpServlet {
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         EntityManager em = DBUtil.createEntityManager();
-
-        User es = em.find(User.class, Integer.parseInt(request.getParameter("id")));
-
+        User es = em.find(User.class, Integer.parseInt(request.getParameter("id"))); //getパラメータのIDのオブジェクト情報を取得
         em.close();
 
-        //リクエストスコープにセット
-        request.setAttribute("user", es);
-        request.setAttribute("_token", request.getSession().getId());
-
-        //セッションスコープに"id"をセット
-        request.getSession().setAttribute("id", es.getId());
-        //セッションスコープに"bbid"をセット
-        request.getSession().setAttribute("user_id", es.getBbid());
+        request.setAttribute("_token", request.getSession().getId()); //リクエストスコープにセッションIDをセット
+        request.setAttribute("user", es); //リクエストスコープにオブジェクトをセット
+        request.getSession().setAttribute("id", es.getId()); //セッションスコープに"id"をセット
+        request.getSession().setAttribute("user_id", es.getBbid()); //セッションスコープに"bbid"をセット
         Integer es_id = es.getId();
 
         //アプリケーションスコープにセットしたログインした人のuser_id情報を取得
         User e_asc = (User)request.getServletContext().getAttribute("login_user_id");
         Integer easc_id = e_asc.getId();
-        //request.getServletContext().setAttribute("flush", esc.getId());
 
+        //セッションスコープのユーザーIDとアプリケーションスコープのユーザーIDを比較して、一致するなら更新画面を表示
         if(es_id == easc_id){
-
-            //セッションスコープのユーザーIDとアプリケーションスコープのユーザーIDを比較して、一致するなら更新画面を表示
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/users/edit.jsp");
             rd.forward(request, response);
         } else {

@@ -32,26 +32,19 @@ public class UsersDestroyServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token = (String)request.getParameter("_token");
-        if(_token != null && _token.equals(request.getSession().getId())) {
+        String _token = (String)request.getParameter("_token"); //リクエストスコープからトークンを取得
+        if(_token != null && _token.equals(request.getSession().getId())) { //トークンがセッションIDと同じ場合
             EntityManager em = DBUtil.createEntityManager();
-            //System.out.println(request.getServletContext().getAttribute("login_user_id"));
-
-            //User e_asc = (User)request.getServletContext().getAttribute("login_user_id");
-            //User e = em.find(User.class, e_asc);
-            //User e = em.find(User.class, (Integer)(request.getSession().getAttribute("bbid")));
-            //User e = em.find(User.class, (Integer)(request.getServletContext().getAttribute("login_user_id")));
-            User e_asc = (User)request.getServletContext().getAttribute("login_user_id");
+            User e_asc = (User)request.getServletContext().getAttribute("login_user_id"); //ログインユーザーのオブジェクトを取得
             Integer easc_id = e_asc.getId();
-            System.out.println(easc_id);
-            User e = em.find(User.class, easc_id);
+
+            User e = em.find(User.class, easc_id); //ログインユーザーのオブジェクトをDBより取得
             e.setDelete_flag(1);
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
-
             em.getTransaction().begin();
             em.getTransaction().commit();
             em.close();
-            request.getSession().removeAttribute("login_user");
+            request.getSession().removeAttribute("login_user"); //セッションスコープからログインユーザーの情報を削除
             request.getSession().setAttribute("flush", "削除が完了しました。");
             response.sendRedirect(request.getContextPath() + "/");
         }

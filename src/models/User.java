@@ -14,10 +14,10 @@ import javax.persistence.Table;
 @Table(name = "users")
 //4つのseect文を作成
 @NamedQueries({
-    //全てのユーザ情報を取得
+    //全てのユーザ情報を取得(削除済みのユーザーは含めない)
     @NamedQuery(
             name = "getAllUsers",
-            query = "SELECT e FROM User AS e ORDER BY e.id DESC"
+            query = "SELECT e FROM User AS e WHERE e.delete_flag = 0 ORDER BY e.id DESC"
             ),
     //ユーザ情報数を取得(削除済みのユーザーは含めない)
     @NamedQuery(

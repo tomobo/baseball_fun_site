@@ -20,18 +20,6 @@
                 <form method="POST" action="<c:url value='/users/update' />">
                     <c:import url="_form.jsp" />
                 </form>
-                <%--
-                <c:if test="${sessionScope.login_user != null}">
-                    <div id="profile_new">
-                         <p><a href="<c:url value='/profile/new' />">→プロフィール編集へ</a></p>&nbsp;
-                    </div>
-                </c:if>
-
-                <form method="POST" action="<c:url value='/users/destroy' />">
-                    <input type="hidden" name="_token" value="${_token}" />
-                </form>
-                 --%>
-
                 <p><a href="#" onclick="confirmDestroy();">このユーザー情報を削除する</a></p>
                 <form method="POST" action="<c:url value='/users/destroy' />">
                     <input type="hidden" name="_token" value="${_token}" />
