@@ -35,8 +35,8 @@ public class LoginServlet extends HttpServlet {
      */
     // ログイン画面を表示
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("_token", request.getSession().getId());
-        request.setAttribute("hasError", false);
+        request.setAttribute("_token", request.getSession().getId()); //セッションIDをリクエストスコープに格納
+        request.setAttribute("hasError", false); //認証エラーのdefault値をfalseでセット
         if(request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");
@@ -51,24 +51,18 @@ public class LoginServlet extends HttpServlet {
      */
     // ログイン処理を実行
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 認証結果を格納する変数
-        Boolean check_result = false;
+        Boolean check_result = false; //認証OKのdefault値をfalseでセット
         // ログインした人の情報をString型の変数に格納
         String bbid = request.getParameter("bbid");
         String plain_pass = request.getParameter("password");
-        //Userクラスの変数を定義
-        User e = null;
-
+        User e = null; //Userクラスの変数を定義
+        //bbidがnull/空ではないかつ、passwordがnull/空ではない場合。
         if(bbid != null && !bbid.equals("") && plain_pass != null && !plain_pass.equals("")) {
             EntityManager em = DBUtil.createEntityManager();
-
             String password = EncryptUtil.getPasswordEncrypt(
                     plain_pass,
                     (String)this.getServletContext().getAttribute("pepper")
                     );
-
-            System.out.println(bbid);
-            System.out.println(password);
             // ユーザーIDとパスワードが正しいかチェックする
             try {
                 e = em.createNamedQuery("checkLoginCodeAndPassword", User.class)
@@ -76,18 +70,18 @@ public class LoginServlet extends HttpServlet {
                       .setParameter("pass", password)
                       .getSingleResult();
             } catch(NoResultException ex) {}
-
             em.close();
 
+            //bbidとパスワードが一致するレコードがある場合はログインOK
             if(e != null) {
-                check_result = true;
+                check_result = true; //認証OKの値をtrueでセット
             }
         }
 
         if(!check_result) {
             // 認証できなかったらログイン画面に戻る
             request.setAttribute("_token", request.getSession().getId());
-            request.setAttribute("hasError", true);
+            request.setAttribute("hasError", true); //認証エラーの値をtrueでセット
             request.setAttribute("bbid", bbid);
 
             RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/login/login.jsp");

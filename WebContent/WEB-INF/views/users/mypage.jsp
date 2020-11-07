@@ -5,11 +5,12 @@
     <c:param name="content">
 
         <%-- flushがある場合は表示する --%>
-        <c:if test="${sessionScope.flush != null}">
+        <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${sessionScope.flush}"></c:out>
+                <c:out value="${flush}"></c:out>
             </div>
         </c:if>
+
         <h2>マイページ</h2>
 
         <c:choose>

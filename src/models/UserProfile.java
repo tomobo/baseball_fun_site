@@ -14,11 +14,11 @@ import javax.persistence.Table;
 @Table(name = "users_profile")
 //4つのselect文を作成
 @NamedQueries({
-   //指定されたIDのパスワードを更新する
-   //@NamedQuery(
-   //         name = "updateProfileImage",
-   //         query = "UPDATE users_profile SET profile_image = :profile_image where id = :id"
-   //         )
+  //指定されたprofile_imageがデータベースに存在しているか調べる
+   @NamedQuery(
+            name = "checkRegisteredProfileImage",
+            query = "SELECT COUNT(e) FROM UserProfile AS e WHERE e.profile_image = :profile_image"
+            ),
   //指定されたユーザーIDのオブジェクトを取得する
     @NamedQuery(
             name = "getEntity",

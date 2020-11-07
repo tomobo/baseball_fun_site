@@ -36,7 +36,7 @@ public class UsersUpdateServlet extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String _token = (String)request.getParameter("_token"); //リクエストスコープからトークンを取
+        String _token = (String)request.getParameter("_token"); //リクエストスコープからトークンを取得
         if(_token != null && _token.equals(request.getSession().getId())) { //トークンがセッションIDと同じ場合
             EntityManager em = DBUtil.createEntityManager();
             User e = em.find(User.class, (Integer)(request.getSession().getAttribute("id")));
@@ -76,7 +76,7 @@ public class UsersUpdateServlet extends HttpServlet {
             e.setUpdated_at(new Timestamp(System.currentTimeMillis()));
             e.setDelete_flag(0);
 
-          //バリデーションチェックを実施(オブジェクト, bbid重複チェック, user_name重複チェック, パスワードが空でないかのチェック)
+            //バリデーションチェックを実施(オブジェクト, bbid重複チェック, user_name重複チェック, パスワードが空でないかのチェック)
             List<String> errors = UserValidator.validate(e, code_duplicate_check, user_name_duplicate_check, password_check_flag);
             if(errors.size() > 0) {
                 request.setAttribute("_token", request.getSession().getId());
