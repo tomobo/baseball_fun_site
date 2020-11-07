@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -59,11 +60,13 @@ public class UserProfileUpload extends HttpServlet {
             Boolean profile_image_duplicate_check = true;
             List<String> errors = UserProfileValidator.validateProfile(ep, profile_image_duplicate_check);
             if(errors.size() > 0) {
-                request.getSession().setAttribute("_token", request.getSession().getId());
-                request.getSession().setAttribute("user_profile", ep);
-                request.getSession().setAttribute("errors", errors);
+                request.setAttribute("_token", request.getSession().getId());
+                request.setAttribute("user_profile", ep);
+                request.setAttribute("errors", errors);
                 em.close();
-                response.sendRedirect(request.getContextPath() + "/profile/create");
+                //response.sendRedirect(request.getContextPath() + "/profile/create");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/profiles/upload.jsp");
+                rd.forward(request, response);
             } else {
                 em.getTransaction().begin();
                 em.getTransaction().commit();
